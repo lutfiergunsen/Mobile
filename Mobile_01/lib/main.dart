@@ -16,14 +16,21 @@ class MyButton extends StatefulWidget {
 }
 
 class _MyButtonState extends State<MyButton> {
-  // Metinler listesi ve mevcut metnin indeksi.
-  List<String> texts = ['A simple text', 'Hello World'];
+  String texts = 'A simple Text';
   int currentIndex = 0;
 
   void _toggleText() {
     setState(() {
-      // currentIndex değişkenini her tıklamada değiştiriyoruz.
-      currentIndex = (currentIndex + 1) % texts.length;
+      if (currentIndex == 0)
+        {
+          texts = 'A simple Text';
+          currentIndex = 1;
+        }
+      else
+        {
+          texts = 'Hello World!';
+          currentIndex = 0;
+        }
     });
   }
 
@@ -33,7 +40,7 @@ class _MyButtonState extends State<MyButton> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          texts[currentIndex],
+          texts,
           style: TextStyle(
             fontSize: 30,
             backgroundColor: Colors.green,
@@ -42,7 +49,7 @@ class _MyButtonState extends State<MyButton> {
         ),
         SizedBox(height: 20),
         ElevatedButton(
-          onPressed: _toggleText, // Butona tıklanınca metin değiştirilecek.
+          onPressed: _toggleText,
           child: Text('Click me'),
         ),
       ],
