@@ -23,6 +23,7 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   String displayText = "0";
   String res = "0";
+  String symbol = "";
 
   void logButtonPress(String buttonText) {
     debugPrint('Button pressed: $buttonText');
@@ -44,6 +45,8 @@ class _CalculatorState extends State<Calculator> {
       else {
         displayText += buttonText;
       }
+      
+
     });
   }
 
