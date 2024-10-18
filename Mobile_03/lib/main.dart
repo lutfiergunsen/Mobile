@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,7 +24,6 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   String displayText = "0";
   String res = "0";
-  String symbol = "";
 
   void logButtonPress(String buttonText) {
     debugPrint('Button pressed: $buttonText');
@@ -32,21 +32,31 @@ class _CalculatorState extends State<Calculator> {
   void buttonPressed(String buttonText) {
     logButtonPress(buttonText);
 
+    void letstart(String displayText) {
+      Parser p = Parser();
+      Expression exp =
+          p.parse(displayText); // displayText'teki işlemi parse eder
+
+      ContextModel cm = ContextModel();
+      double eval =
+          exp.evaluate(EvaluationType.REAL, cm); // İşlemi değerlendirir
+      setState(() {
+        res = eval.toString();
+      });
+      print('Sonuç: $eval');
+    }
+
     setState(() {
-      if (displayText == "0") {
-        displayText = buttonText;
-      }
-      else if(buttonText == "AC") {
+      if (buttonText == "AC") {
         displayText = "0";
-      }
-      else if(buttonText == "C") {
+        res = "0";
+      } else if (buttonText == "C") {
         displayText = displayText.substring(0, displayText.length - 1);
-      }
-      else {
+      } else if (buttonText == "=") {
+        letstart(displayText);
+      } else {
         displayText += buttonText;
       }
-      
-
     });
   }
 
