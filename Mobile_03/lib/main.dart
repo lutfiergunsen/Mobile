@@ -47,11 +47,14 @@ class _CalculatorState extends State<Calculator> {
     }
 
     setState(() {
-      if (buttonText == "AC") {
+      if (displayText == "0" && buttonText != "AC" && buttonText != "C") {
+        displayText = buttonText;
+      } else if (buttonText == "AC") {
         displayText = "0";
         res = "0";
       } else if (buttonText == "C") {
         displayText = displayText.substring(0, displayText.length - 1);
+        if (displayText == "") displayText = "0";
       } else if (buttonText == "=") {
         letstart(displayText);
       } else {
